@@ -126,6 +126,15 @@ ansible-lint style_playbook.yml
 ```
 
 # Hands-On Labs
+mater-node : This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
+
+node01: This host will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
+username: bob, password: caleston123
+
+node02: This host also will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
+username: bob, password: caleston123
+
+
 # POC Solutions/Projects
 
 # Interview Q/A
