@@ -133,7 +133,7 @@ username: bob, password: caleston123
 
 node02: This host also will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
 username: bob, password: caleston123
-## Example Playbook : How ansible plays are there in the playbook?
+## Example Playbook 01: How ansible plays are there in the playbook?
 
 ```yaml
 ---
@@ -161,7 +161,35 @@ username: bob, password: caleston123
         name: tomcat
         state: started
 ```
+## Example Playbook 02: How many tasks are there under the Setup Apache Ansible play?
 
+
+```yaml
+---
+- name: Setup apache
+  hosts: webserver
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: installed
+    - name: Start service
+      service:
+        name: httpd
+        state: started
+
+- name: Setup tomcat
+  hosts: appserver
+  tasks:
+    - name: install httpd
+      yum:
+        name: tomcat
+        state: installed
+    - name: Start service
+      service:
+        name: tomcat
+        state: started
+```
 
 # POC Solutions/Projects
 
