@@ -125,6 +125,96 @@ ansible-playbook install_nginx.yml --check --diff
 ansible-lint style_playbook.yml
 ```
 
+### Ansible Conditionals
+### Conditional - When
+```yaml
+---
+- name: Install NGINX
+  hosts: all
+  tasks:
+  - name: Install NGINX on Debian
+    apt: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: Install NGINX on Redhat
+    yum: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Redhat"
+```
+### Operator - or
+```yaml
+---
+- name: Install NGINX
+  hosts: all
+  tasks:
+  - name: Install NGINX on Debian
+    apt: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: Install NGINX on Redhat
+    yum: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Redhat" or ansible_os_family == "SUSE"
+```
+### Operator - and
+```yaml
+---
+- name: Install NGINX
+  hosts: all
+  tasks:
+  - name: Install NGINX on Debian
+    apt: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Debian" and ansible_distribition_version == "16.04"
+  - name: Install NGINX on Redhat
+    yum: 
+      name: nginx
+      state: present
+    when: ansible_os_family == "Redhat" or ansible_os_family == "SUSE"
+```
+### Conditionals in Loops
+```yaml
+---
+- name: Install Softwares
+  hosts: all
+  vars: 
+    packages:
+      - name: nginx
+        required: True
+      - name: mysql
+        required: True
+      - name: apache
+        required: False
+  tasks:
+  - name: Install "{{ item.name }}" on Debian
+    apt: 
+      name: {{ item.name }}
+      state: present
+    when: item.required = True
+    loop: "{{ packages }}"
+```
+### Conditionals & Register
+```yaml
+---
+- name: Check Status of a service and email if its down
+  hosts: localhost
+  tasks:
+  - name: Check status of a service
+    command: service httpd status
+    register: result
+  - mail: 
+      to: admin@example.com
+      subject: Service Alert
+      body: Httpd Service is down
+      
+      when: result.stdout.find('down') != -1
+```
+
 # Hands-On Labs
 mater-node : This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
 
