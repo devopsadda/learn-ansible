@@ -113,8 +113,17 @@ all:
         name: httpd
         state: started
 ```
+### How to varify Playbooks in Ansible?
+```shell
+ansible-playbook install_nginx.yml --syntax-check
+ansible-playbook install_nginx.yml --check
+ansible-playbook install_nginx.yml --check --diff
+```
 
-
+### Ansible lint (ansible-lint)
+```shell
+ansible-lint style_playbook.yml
+```
 
 # Hands-On Labs
 # POC Solutions/Projects
