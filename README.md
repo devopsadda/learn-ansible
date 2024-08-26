@@ -134,7 +134,14 @@ username: bob, password: caleston123
 node02: This host also will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
 username: bob, password: caleston123
 ### Example Playbook 01: How ansible plays are there in the playbook?
-
+```yaml
+node01 ansible_host=node01 ansible_ssh_pass=caleston123
+node02 ansible_host=node02 ansible_ssh_pass=caleston123
+[webserver]
+node01
+[appserver]
+node02
+```
 ```yaml
 ---
 - name: Setup apache
@@ -162,8 +169,6 @@ username: bob, password: caleston123
         state: started
 ```
 ### Example Playbook 02: How many tasks are there under the Setup Apache Ansible play?
-
-
 ```yaml
 ---
 - name: Setup apache
@@ -189,6 +194,30 @@ username: bob, password: caleston123
       service:
         name: tomcat
         state: started
+```
+### Example Playbook 03: 
+
+```yaml
+inventory:
+node01 ansible_host=node01 ansible_ssh_pass=caleston123
+node02 ansible_host=node02 ansible_ssh_pass=caleston123
+[web_nodes]
+node01
+node02
+
+playbook.yml:
+---
+- name: 'Execute two commands on web_nodes'
+  hosts: web_nodes
+  become: yes
+  tasks:
+    - name: 'Execute a date command'
+      command: date
+    - name: 'Task to display hosts file'
+      command: 'cat /etc/hosts'
+
+playbook execution commands: 
+ansible-playbook -i inventory playbook.yaml
 ```
 
 # POC Solutions/Projects
