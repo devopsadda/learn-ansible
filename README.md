@@ -232,6 +232,7 @@ ansible-lint style_playbook.yml
         - mike
 ```
 ## Ansible Modules and Plugins
+### Ansible Modules
 - system
     - user
     - group
@@ -267,6 +268,21 @@ ansible-lint style_playbook.yml
     - postgresql
 - cloud
 
+### Ansible Plugins
+- Invetory solution for real-time data
+- Require the ability to provision cloud resources with custom configurations
+- Dynamically configuration
+
+- Inventory Plugins
+- Module Plugins
+- Action Plugins
+- Callback Plugins
+- Lookup Plugins
+- Filter Plugins
+- Connection Plugins
+
+## Ansible Handlers, Roles and Collections
+## Ansible Templates
 # Hands-On Labs
 mater-node : This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
 
