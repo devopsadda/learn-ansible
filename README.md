@@ -92,6 +92,8 @@ all:
             - Execute a script
             - Install a package
             - Shutdown/Restart
+- Ansible modules are units of code that can control system resources or execute system commands. Ansible provides a module library that you can execute directly on remote hosts or through playbooks. You can also write custom modules.
+
 ```shell
 ---
 - name: Samnple Playbook 
@@ -211,9 +213,59 @@ ansible-lint style_playbook.yml
       to: admin@example.com
       subject: Service Alert
       body: Httpd Service is down
-      
+
       when: result.stdout.find('down') != -1
 ```
+### Ansible - Loops
+```yaml
+---
+- name: Create users
+  hosts: localhost
+  tasks:
+    - user: name='{{ item }}' state=present
+      loop:
+        - joe
+        - ravi
+        - tanvir
+        - sanjeev
+        - emaan
+        - mike
+```
+## Ansible Modules and Plugins
+- system
+    - user
+    - group
+    - hostname
+    - iptables
+    - lvg
+    - lvol
+    - make
+    - mount
+    - ping
+    - timezone
+    - systemd
+    - service
+- command:
+    - command
+    - expect
+    - raw
+    - script
+    - shell
+- file
+    - acl
+    - archive
+    - copy
+    - file
+    - lineinfile
+    - replace
+    - stat
+    - template
+    - unarchive
+- database
+    - mongodb
+    - mysql
+    - postgresql
+- cloud
 
 # Hands-On Labs
 mater-node : This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
@@ -327,8 +379,32 @@ Ex: Capture the output of first command and pass it to second command.
 
   - debug:
     var: result
+```
 
+Scenario 02: Playbook need to perform different set of actions on different servers. Install specific version of NGINX, only on server running ubuntu 18.04 ... you can check using ansible_facts
 
+```yaml
+---
+- name: Install Nginx on Ubuntu 18.04
+  hosts: all
+  tasks:
+  - name: Install Nginx on Ubuntu 18.04
+    apt:
+      name: nginx=1.18.0
+      state: present
+    when: ansible_facts['os_family'] == 'Debian' and ansible_facts['distribution_major_version'] == '18'
+```
 
+Scenario 03: Playbook need to perform different set of actions on different servers. Install specific version of NGINX, only on server running ubuntu 18.04 ... you can check using ansible_facts
 
+```yaml
+---
+- name: Install Nginx on Ubuntu 18.04
+  hosts: all
+  tasks:
+  - name: Install Nginx on Ubuntu 18.04
+    apt:
+      name: nginx=1.18.0
+      state: present
+    when: ansible_facts['os_family'] == 'Debian' and ansible_facts['distribution_major_version'] == '18'
 ```
