@@ -282,7 +282,47 @@ ansible-lint style_playbook.yml
 - Connection Plugins
 
 ## Ansible Handlers, Roles and Collections
+### Ansible Handlers
+Suppose you are frequently make change in the configuration of the server and you need to manually restart the service.
+
+- Tasks triggered by events/notifications.
+- Defines in playbook, executed when notified by a task
+- Manage actions based on system state/configuration changes
+
+```yaml
+---
+- name: Deploy Application
+  hosts: application_servers
+  tasks:
+    - name: Copy Application Code
+      copy:
+        src: app_code/
+        dest: /opt/application/
+      notify: Restart Application Service
+  handlers:
+    - name: Restart Application Service
+      service:
+        name: application_service
+        state: restarted
+```
+### Ansible Role
+- Organize the code in better way
+- Reuse the code
+- role
+    - tasks
+    - vars
+    - defaults
+    - handlers
+    - templates
+
+```shell
+ansible-galaxy init mysql
+
+```
+
 ## Ansible Templates
+
+
 # Hands-On Labs
 mater-node : This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
 
