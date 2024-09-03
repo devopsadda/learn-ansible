@@ -55,7 +55,6 @@ web2.example.com
 db1.example.com
 db2.example.com
 ```
-
 ### Ansible YAML Format
 ```shell
 all:
@@ -69,8 +68,7 @@ all:
         db1.example.com:
         db2.example.com:
 ```
-
-### Inventory Example:
+### Inventory Examples
 ```yaml
 [bob@student-node playbooks]$ cat inventory 
 # Sample Inventory File
@@ -116,6 +114,11 @@ web_node3
 boston_nodes
 dallas_nodes
 ```
+### Grouping and Parent-Child Relationship.. Why do we need Grouping?
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+
 
 ## Ansible Variables and Facts
 - Variables stores information that varies with each host.
