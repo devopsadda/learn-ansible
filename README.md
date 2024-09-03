@@ -1,4 +1,4 @@
-# Ansible Learning Materials
+# Let's Learn and Build Something using Ansible
 
 # Learning notes - concepts
 
@@ -10,11 +10,18 @@
 - Application Deployment
 - Secuirty Compliance
 
+Use Case 01:
+Suppose we have number of servers in the environment(Web Server, App Server, Database)
+We want to power down the server in WEB->APP>DB
+Power up DB->APP->WEB using ansible playbooks.
+
+User Case 02:
+Suppose we have 1000s of server and we want to install, configure and manage the configuration of the server, we can use ansible becase of number of modules available to do it.
 
 ## Configuration Files
+When we install the Ansible it creates default configuration file in location: /etc/ansible/ansible.cfg
 
 ```shell
-
 /etc/ansible/ansible.cfg
 [defaults]
 inventory           = /etc/ansible/hosts
@@ -24,13 +31,11 @@ inventory           = /etc/ansible/hosts
 [priviledge_escalation]
 
 [ssh_connection]
-
 ```
 
 ## Ansible Inventory
 ```shell
 /etc/ansible/hosts
-
 [web]
 ansible_host=server1.example.com ansible_connection=ssh ansible_user=root
 server2.example.com
@@ -40,14 +45,12 @@ server4.example.com
 [db]
 server5.example.com
 server6.example.com
-
 ```
 ### Ansible INI Format
 ```shell
 [webservers]
 web1.example.com
 web2.example.com
-
 [dbservers]
 db1.example.com
 db2.example.com
@@ -65,6 +68,18 @@ all:
       hosts:
         db1.example.com:
         db2.example.com:
+```
+
+### Inventory Example:
+```yaml
+[bob@student-node playbooks]$ cat inventory 
+# Sample Inventory File
+
+# Web Servers
+web1 ansible_host=server1.company.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password123!
+web2 ansible_host=server2.company.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password123!
+web3 ansible_host=server3.company.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password123!
+db1  ansible_host=server3.company.com ansible_connection=winrm ansible_user=administrator ansible_password=Dbp@ss123!
 ```
 
 ## Ansible Variables and Facts
